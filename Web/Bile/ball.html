@@ -1,0 +1,161 @@
+﻿<!DOCTYPE html>
+
+<html>
+
+<title> Balls :) </title>
+<style type = "text/css"> 
+	body {
+		margin: 0;
+		overflow: hidden;
+	}
+</style>
+
+<body>
+
+<canvas id = "Canvas"> </canvas>
+
+<script>
+
+let mouse = {
+	x : undefined,
+	y : undefined
+};
+
+let colors = [
+	'rgb(100, 27, 100)',
+	'rgb(255, 110, 30)',
+	'rgb(20, 170, 255)',
+];
+
+DrawCircle = function (x, y, radius, color) {
+	
+	ctx.fillStyle = color;
+	ctx.beginPath ();
+	ctx.arc (x, y, radius, 0, Math.PI * 2);
+	ctx.fill ();
+};
+
+Dist = function (x1, y1, x2, y2) {
+	return Math.sqrt ((x1 - x2) * (x1 - x2) + (y1 - y2) * (y1 - y2));
+};
+
+let canvas, ctx;
+const FRAME_RATE = 30;
+
+let balls;
+const TO_ADD = 5;
+const BALL_SPEED = 5;
+const DIST_TO_ENLARGE = 70;
+const HOW_MANY_BALLS = 500;
+const BALL_RADIUS_MIN = 10;
+const BALL_RADIUS_RANGE = 10;
+const ENLARGE_SCALE = 3.7;
+
+class Ball {
+	
+	constructor (x, y, radius) {
+		this.x = x;
+		this.y = y;
+		this.radius = radius;
+		this.curRadius = radius;
+		this.color = colors[Math.floor (Math.random () * colors.length)];
+		this.dirX = Math.random () * BALL_SPEED;
+		this.dirY = BALL_SPEED - this.dirX;
+		
+		if (Math.random () < 0.5) {
+			this.dirX = -this.dirX;
+		}
+		if (Math.random () < 0.5) {
+			this.dirY = -this.dirY;
+		}
+	}
+
+	Update () {
+
+		this.x += this.dirX;
+		this.y += this.dirY;
+
+		if (this.x - this.curRadius <= 0) {
+			this.x = this.curRadius;
+			this.dirX = - this.dirX;
+			this.x += this.dirX;
+		}
+		if (this.x + this.curRadius >= canvas.width) {
+			this.x = canvas.width - this.curRadius;
+			this.dirX = - this.dirX;
+			this.x += this.dirX;
+		}
+		if (this.y - this.curRadius <= 0) {
+			this.y = this.curRadius;
+			this.dirY = - this.dirY;
+			this.y += this.dirY;
+		}
+		if (this.y + this.curRadius >= canvas.height) {
+			this.y = canvas.height - this.curRadius;
+			this.dirY = - this.dirY;
+			this.y += this.dirY;
+		}
+	
+	
+		if (Dist (this.x, this.y, mouse.x, mouse.y) < DIST_TO_ENLARGE) {
+			if (this.curRadius < this.radius * ENLARGE_SCALE) {
+				this.curRadius += TO_ADD;
+			}
+		}
+		else if (this.curRadius > this.radius) {
+			this.curRadius -= TO_ADD;
+		}
+	}
+
+	Draw () {
+		DrawCircle (this.x, this.y, this.curRadius, this.color);
+	}
+};
+
+Init = function () {
+
+	canvas = document.getElementById ('Canvas');
+	ctx = canvas.getContext ('2d');
+
+	canvas.width = window.innerWidth;
+	canvas.height = window.innerHeight;
+	
+	balls = [];
+	ctx.fillStyle = 'white';
+	ctx.fillRect (0, 0, canvas.width, canvas.height);
+	for (let i = 0; i < HOW_MANY_BALLS; ++ i) {
+		balls.push (new Ball (Math.random () * canvas.width, Math.random () * canvas.height, Math.random () * BALL_RADIUS_RANGE + BALL_RADIUS_MIN));
+	}
+}
+
+Run = function () {
+	
+	ctx.fillStyle = 'white';
+	ctx.fillRect (0, 0, canvas.width, canvas.height);
+	for (let i = 0; i < HOW_MANY_BALLS; ++ i) {
+		balls[i].Update ();	
+		balls[i].Draw ();
+	}
+}
+
+window.onload = function () {
+
+	Init ();
+	
+	window.addEventListener ('mousemove', function (event) {
+		mouse.x = event.x;
+		mouse.y = event.y;
+	});
+
+	window.addEventListener ('resize', function (event) {
+		Init ();	
+	});
+
+	setInterval (Run, 1000 / FRAME_RATE);
+}
+
+</script>
+
+</body>
+
+</html>
