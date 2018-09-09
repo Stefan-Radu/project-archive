@@ -1,53 +1,130 @@
-
 let canv = document.getElementById ('Canvas');
 let ctx = canv.getContext ('2d');
+canv.width = window.innerWidth;
+canv.height = window.innerHeight;
 
-let xSpeed = Math.PI / 15;
-let ySpeed = Math.PI / 90;
-let x = xSpeed;
-let y = ySpeed;
+//======================================================================
 
 function DrawBackground () {
 
-  ctx.fillStyle = '1b1b1b';
+  ctx.fillStyle = 'rgba(255, 255, 255, 0.3';
   ctx.fillRect (0, 0, canv.width, canv.height);
 }
 
-function Arc (x, y, r, start, fin, color) {
-  
-  ctx.lineWidth = 15;
-  ctx.strokeStyle = color;
-  ctx.beginPath ();
-  ctx.arc (x, y, r, start, fin);
-  ctx.stroke ();
+//======================================================================
+
+let colors = [
+  [72, 133, 237],
+  [219, 50, 54],
+  [244, 194, 13],
+  [72, 133, 237],
+  [60, 186, 84],
+  [219, 50, 54]
+];
+
+function RGBstring (rgb1, rgb2, perc) {
+
+  let r = rgb1[0] + perc * (rgb2[0] - rgb1[0]);
+  let g = rgb1[1] + perc * (rgb2[1] - rgb1[1]);
+  let b = rgb1[2] + perc * (rgb2[2] - rgb1[2]);
+
+  return 'rgb(' + r + ',' + g + ',' + b + ')';
 }
 
-function Do () {
+let idx = 1;
+let perc = 0;
+let COLOR_STEP = 0.01;
+
+function CycleColors () {
+
+  if (perc == 1) {
+    perc = 0;
+    idx = (idx + 1) % (colors.length);
+  }
+  else {
+    perc = Math.min (perc + COLOR_STEP, 1);
+  }
+}
+
+//======================================================================
+
+const BASE_SPEED = 0.1;
+const ACC = 0.007;
+const MIN_DIST = 0.1;
+const MAX_LEN = Math.PI;
+const RADIUS = 100;
+const PI2 = Math.PI * 2;
+const STEP = 0.05;
+const ERR = 5;
+
+let a = 0;
+let b = 0.1;
+let speedA = BASE_SPEED;
+let speedB = BASE_SPEED;
+let aFast = false;
+
+function Update () {
   
+  CycleColors ();
   DrawBackground ();
 
-  Arc (canv.width / 2, canv.height / 2, 150, Math.max (x, y), Math.min (x, y), '#FFFFFF');
+  ctx.beginPath ();
+  ctx.lineWidth = 7;
 
-  x += xSpeed; 
-  y += ySpeed;
-  
-  if (x >= Math.PI * 2) {
-    x -= Math.PI * 2;
+  for (let i = a; i <= b; i += STEP) {
+    ctx.moveTo (canv.width / 2 + Math.cos (i - STEP) * RADIUS, canv.height / 2 + Math.sin (i - STEP) * RADIUS);
+    ctx.lineTo (canv.width / 2 + Math.cos (i) * RADIUS, canv.height / 2 + Math.sin (i) * RADIUS);
   }
 
-  if (y >= Math.PI * 2) {
-    y -= Math.PI * 2;
+  ctx.strokeStyle = RGBstring (colors[idx == 0 ? colors.length - 1 : idx - 1], colors[idx], perc);
+  ctx.stroke ();
+  
+  ctx.beginPath ();
+
+  let k = b;
+  ctx.arc (canv.width / 2 + Math.cos (k) * RADIUS, canv.height / 2 + Math.sin (k) * RADIUS, 3.5, 0, PI2);
+  k -= STEP / 2;
+  ctx.arc (canv.width / 2 + Math.cos (k) * RADIUS, canv.height / 2 + Math.sin (k) * RADIUS, 3.5, 0, PI2);
+  k -= STEP / 2;
+  ctx.arc (canv.width / 2 + Math.cos (k) * RADIUS, canv.height / 2 + Math.sin (k) * RADIUS, 3.5, 0, PI2);
+
+  ctx.fillStyle = RGBstring (colors[idx == 0 ? colors.length - 1 : idx - 1], colors[idx], perc);
+  ctx.fill ();
+
+  if (aFast) {
+    speedA += ACC;
+    speedB = Math.max (BASE_SPEED, speedB - ACC);
+  }
+  else {
+    speedB += ACC;
+    speedA = Math.max (BASE_SPEED, speedA - ACC);
+  }
+
+  a += speedA;
+  b += speedB;
+
+  if (b - a > 1.5 * Math.PI) {
+
+    aFast = true;
+    speedB = BASE_SPEED + ERR * ACC;
+  }
+  else if (b - a < 0.1) {
+
+    a = b - 0.1;
+    aFast = false;
+    speedA = BASE_SPEED + ERR * ACC;
+  }
+
+  if (a > 30 * Math.PI && b > 30 * Math.PI) {
+
+    a -= 20 * Math.PI;
+    b -= 20 * Math.PI;
   }
 }
 
 window.onload = function () {
-  
-  // let start = false;
-  
-  DrawBackground ();
-  // document.addEventListener ('keypress', function () { start = true; });
 
-  // if (start) {
-    setInterval (Do, 1000 / 30);
-  // }
+  ctx.fillStyle = '#ffffff';
+  ctx.fillRect (0, 0, canv.width, canv.height);
+  setInterval (Update, 1000 / 30);
 };
