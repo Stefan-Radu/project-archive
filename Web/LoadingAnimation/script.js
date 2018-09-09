@@ -1,7 +1,5 @@
 let canv = document.getElementById ('Canvas');
 let ctx = canv.getContext ('2d');
-canv.width = window.innerWidth;
-canv.height = window.innerHeight;
 
 //======================================================================
 
@@ -65,6 +63,8 @@ let aFast = false;
 
 function Update () {
   
+  canv.width = window.innerWidth;
+  canv.height = window.innerHeight;
   CycleColors ();
   DrawBackground ();
 
