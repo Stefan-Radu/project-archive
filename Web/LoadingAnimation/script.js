@@ -5,7 +5,7 @@ let ctx = canv.getContext ('2d');
 
 function DrawBackground () {
 
-  ctx.fillStyle = 'rgba(255, 255, 255, 0.3';
+  ctx.fillStyle = 'rgba(255, 255, 255, 0.27';
   ctx.fillRect (0, 0, canv.width, canv.height);
 }
 
@@ -63,8 +63,6 @@ let aFast = false;
 
 function Update () {
   
-  canv.width = window.innerWidth;
-  canv.height = window.innerHeight;
   CycleColors ();
   DrawBackground ();
 
@@ -122,9 +120,16 @@ function Update () {
   }
 }
 
+function ResizeCanvas () {
+  canv.width = window.innerWidth;
+  canv.height = window.innerHeight;
+}
+
 window.onload = function () {
 
+  ResizeCanvas ();
   ctx.fillStyle = '#ffffff';
   ctx.fillRect (0, 0, canv.width, canv.height);
+  window.addEventListener ('resize', ResizeCanvas);
   setInterval (Update, 1000 / 30);
 };
