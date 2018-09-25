@@ -1,12 +1,11 @@
-let canv = document.getElementById ('Canvas');
-let ctx = canv.getContext ('2d');
+let canvas = document.getElementById ('Canvas');
+let ctx = canvas.getContext ('2d');
 
 //======================================================================
 
 function DrawBackground () {
-
   ctx.fillStyle = 'rgba(255, 255, 255, 0.3';
-  ctx.fillRect (0, 0, canv.width, canv.height);
+  ctx.fillRect (0, 0, canvas.width, canvas.height);
 }
 
 //======================================================================
@@ -63,8 +62,9 @@ let aFast = false;
 
 function Update () {
   
-  canv.width = window.innerWidth;
-  canv.height = window.innerHeight;
+  // canvas.width = window.innerWidth;
+  // canvas.height = window.innerHeight;
+
   CycleColors ();
   DrawBackground ();
 
@@ -72,8 +72,8 @@ function Update () {
   ctx.lineWidth = 7;
 
   for (let i = a; i <= b; i += STEP) {
-    ctx.moveTo (canv.width / 2 + Math.cos (i - STEP) * RADIUS, canv.height / 2 + Math.sin (i - STEP) * RADIUS);
-    ctx.lineTo (canv.width / 2 + Math.cos (i) * RADIUS, canv.height / 2 + Math.sin (i) * RADIUS);
+    ctx.moveTo (canvas.width / 2 + Math.cos (i - STEP) * RADIUS, canvas.height / 2 + Math.sin (i - STEP) * RADIUS);
+    ctx.lineTo (canvas.width / 2 + Math.cos (i) * RADIUS, canvas.height / 2 + Math.sin (i) * RADIUS);
   }
 
   ctx.strokeStyle = RGBstring (colors[idx == 0 ? colors.length - 1 : idx - 1], colors[idx], perc);
@@ -82,11 +82,11 @@ function Update () {
   ctx.beginPath ();
 
   let k = b;
-  ctx.arc (canv.width / 2 + Math.cos (k) * RADIUS, canv.height / 2 + Math.sin (k) * RADIUS, 3.5, 0, PI2);
+  ctx.arc (canvas.width / 2 + Math.cos (k) * RADIUS, canvas.height / 2 + Math.sin (k) * RADIUS, 3.5, 0, PI2);
   k -= STEP / 2;
-  ctx.arc (canv.width / 2 + Math.cos (k) * RADIUS, canv.height / 2 + Math.sin (k) * RADIUS, 3.5, 0, PI2);
+  ctx.arc (canvas.width / 2 + Math.cos (k) * RADIUS, canvas.height / 2 + Math.sin (k) * RADIUS, 3.5, 0, PI2);
   k -= STEP / 2;
-  ctx.arc (canv.width / 2 + Math.cos (k) * RADIUS, canv.height / 2 + Math.sin (k) * RADIUS, 3.5, 0, PI2);
+  ctx.arc (canvas.width / 2 + Math.cos (k) * RADIUS, canvas.height / 2 + Math.sin (k) * RADIUS, 3.5, 0, PI2);
 
   ctx.fillStyle = RGBstring (colors[idx == 0 ? colors.length - 1 : idx - 1], colors[idx], perc);
   ctx.fill ();
@@ -122,9 +122,20 @@ function Update () {
   }
 }
 
+function Resize () {
+  canvas.width = window.innerWidth;
+  canvas.height = window.innerHeight;
+}
+
 window.onload = function () {
 
-  ctx.fillStyle = '#ffffff';
-  ctx.fillRect (0, 0, canv.width, canv.height);
+  canvas.width = window.innerWidth;
+  canvas.height = window.innerHeight;
+  
+  ctx.fillStyle = '#000000';
+  ctx.fillRect (0, 0, canvas.width, canvas.height);
+
+  window.addEventListener ('resize', Resize);
+
   setInterval (Update, 1000 / 30);
 };
