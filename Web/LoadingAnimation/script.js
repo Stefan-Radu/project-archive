@@ -4,7 +4,7 @@ let ctx = canvas.getContext ('2d');
 //======================================================================
 
 function DrawBackground () {
-  ctx.fillStyle = 'rgba(255, 255, 255, 0.3';
+  ctx.fillStyle = 'rgba(255, 255, 255, 0.27';
   ctx.fillRect (0, 0, canvas.width, canvas.height);
 }
 
@@ -62,9 +62,12 @@ let aFast = false;
 
 function Update () {
   
+<<<<<<< HEAD
   // canvas.width = window.innerWidth;
   // canvas.height = window.innerHeight;
 
+=======
+>>>>>>> 3c0a652febcde8d2ca2e2ad61a2b3a06a66cf591
   CycleColors ();
   DrawBackground ();
 
@@ -122,7 +125,7 @@ function Update () {
   }
 }
 
-function Resize () {
+function ResizeCanvas () {
   canvas.width = window.innerWidth;
   canvas.height = window.innerHeight;
 }
@@ -135,7 +138,7 @@ window.onload = function () {
   ctx.fillStyle = '#000000';
   ctx.fillRect (0, 0, canvas.width, canvas.height);
 
-  window.addEventListener ('resize', Resize);
+  window.addEventListener ('resize', ResizeCanvas);
 
   setInterval (Update, 1000 / 30);
 };
