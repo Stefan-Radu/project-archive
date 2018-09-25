@@ -62,12 +62,6 @@ let aFast = false;
 
 function Update () {
   
-<<<<<<< HEAD
-  // canvas.width = window.innerWidth;
-  // canvas.height = window.innerHeight;
-
-=======
->>>>>>> 3c0a652febcde8d2ca2e2ad61a2b3a06a66cf591
   CycleColors ();
   DrawBackground ();
 
