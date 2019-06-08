@@ -1,4 +1,4 @@
-###My Projects
+### My Projects
 
 * Tic tac toe (X si 0) -> this would be my first project ever :)
 * Snake Game + a naive A.I.
