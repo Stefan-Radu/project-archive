@@ -1,20 +1,16 @@
-#My Projects
+###My Projects
 
-* __C++__
-    * Tic tac toe (X si 0);
-    * Snake Game with a naive A.I.
-    * A raining matrix;
-    * An OpenGl window;
-
-* __Processing__
-    * Julia Set;
-    * Mandelbrot Set;
-    * Fireworks simulation;
-    * Starfield effect;
-
-* __Web__
-    * Circles (not done yet);
-    * Loading Animation (not too good);
-    * Raining matrix in p5;
-    * A balder, but better coded snake;
-    * Some balls on the screen doing weird stuff;
+* Tic tac toe (X si 0) -> this would be my first project ever :)
+* Snake Game + a naive A.I.
+* A raining matrix
+* Julia Set
+* Mandelbrot Set
+* Fireworks simulation
+* Starfield effect
+* Circles
+* Loading Animation
+* Raining matrix in p5
+* Better coded snakes
+* Balls bouncing around
+* Lissajous curve
+* A simulator of Poincare's prediction
