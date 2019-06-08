@@ -11,3 +11,11 @@ Each 5 billion steps it prints the number of times the number of balls in bucket
 * between 91 and 100
 
 If the number of balls in bucket A reaches 100 it will print *"Back to the beginning"* and will stop. 
+
+<u>edit:</u>  
+After 8 hours the number of balls in bucket A reached between:  
+* 71 and 80 balls 5615300 times
+* 81 and 90 balls 34 times
+* 91 and 100 balls 0 times
+
+27 years later, there would have been a high chance that the number of balls in the A bucket would have exceeded 90 at least once. Quite a long time...
