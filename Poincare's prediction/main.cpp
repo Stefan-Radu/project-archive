@@ -1,28 +1,11 @@
 // By Stefan Radu
 
-#include <algorithm>
 #include <iostream>
-#include <iomanip>
-#include <cassert>
 #include <vector>
-#include <string>
-#include <cctype>
-#include <queue>
-#include <deque>
-#include <cmath>
-#include <stack>
-#include <map>
-#include <set>
 
 using namespace std;
 
-#define sz(x) (int)(x).size()
-
-typedef pair < int, int > pii;
 typedef long long ll;
-typedef long double ld;
-typedef unsigned int ui;
-typedef unsigned long long ull;
 
 const ll MOD = 5e9;
 const int EPS = 1000;
@@ -49,7 +32,7 @@ void run(int &cnt, ll &steps, vector < ll > &howMany, vector < bool > &state) {
   }
 
   if (cnt == 100) {
-    cerr << "Back to the beggining" << endl;
+    cerr << "Back to the beginning" << endl;
     exit(0);
   }
 
@@ -65,14 +48,6 @@ void run(int &cnt, ll &steps, vector < ll > &howMany, vector < bool > &state) {
 }
 
 int main() {
-
-#ifdef STEF
-  freopen("input", "r", stdin);
-  freopen("output", "w", stdout);
-#endif
-
-  ios::sync_with_stdio(false);
-  cin.tie(0);cout.tie(0);
 
   srand(time(0));
 

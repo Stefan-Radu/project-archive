@@ -6,7 +6,6 @@
 
 This script puts to the test this prediction.  
 Each 5 billion steps it prints the number of times the number of balls in bucket A was:  
-* between 61 and 70
 * between 71 and 80
 * between 81 and 90
 * between 91 and 100
