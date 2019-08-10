@@ -26,21 +26,23 @@ let k = 0, speedHoriz = SPEED_SCALE * (Math.random () + 1), speedVert = SPEED_SC
 
 let angleVert = [];
 let angleHoriz = [];
+let preHoriz = [];
+let preVert = [];
 
 function Init () {
 
-  for (let i = 1; i < 100; ++ i) {
+  for (let i = 0; i < 100; ++ i) {
     angleHoriz[i] = 0;
-  }
-
-  for (let i = 1; i < 100; ++ i) {
     angleVert[i] = 0;
+    preHoriz[i] = 0;;
+    preVert[i] = 0;
   }
 }
 
 function Update () {
 
   for (let i = 1; i < DIVISIONS_HORIZ; ++ i) {
+    preHoriz[i] = angleHoriz[i];
     angleHoriz[i] += speedHoriz * i;
     if (angleHoriz[i] >= PI2) {
       angleHoriz[i] -= PI2;
@@ -48,6 +50,7 @@ function Update () {
   }
 
   for (let i = 1; i < Math.floor (canvas.height / divSize); ++ i) {
+    preVert[i] = angleVert[i];
     angleVert[i] += speedVert * i;
     if (angleVert[i] >= PI2) {
       angleVert[i] -= PI2;
@@ -57,34 +60,38 @@ function Update () {
 
 function Draw () {
 
-  ctx.fillStyle = 'rgba(0, 0, 0, 0.02)';
+  ctx.fillStyle = 'rgba(0, 0, 0, 0.03)';
   ctx.fillRect (0, 0, canvas.width, canvas.height);
 
   ctx.fillStyle = '#ffffff';
+  ctx.strokeStyle = '#ffffff';
+  ctx.lineWidth = dot * 2.3;
+
   for (let i = 1; i < DIVISIONS_HORIZ; ++ i) {
-    ctx.beginPath ();
-    ctx.arc (margin + divSize * i + radius * (Math.cos (angleHoriz[i]) + 1), margin + radius * (Math.sin (angleHoriz[i]) + 1), dot, 0, PI2);
-    ctx.fill ();
+    ctx.beginPath();
+    ctx.moveTo(margin + divSize * i + radius * (Math.cos(preHoriz[i]) + 1), margin + radius * (Math.sin(preHoriz[i]) + 1));
+    ctx.lineTo(margin + divSize * i + radius * (Math.cos(angleHoriz[i]) + 1), margin + radius * (Math.sin(angleHoriz[i]) + 1));
+    ctx.stroke();
   }
 
   for (let i = 1; i < Math.floor (canvas.height / divSize); ++ i) {
-    ctx.beginPath ();
-    ctx.arc (margin + radius * (Math.cos (angleVert[i]) + 1), margin + divSize * i + radius * (Math.sin (angleVert[i]) + 1), dot, 0, PI2);
-    ctx.fill ();
+    ctx.beginPath();
+    ctx.moveTo(margin + radius * (Math.cos(preVert[i]) + 1), margin + divSize * i + radius * (Math.sin(preVert[i]) + 1));
+    ctx.lineTo(margin + radius * (Math.cos(angleVert[i]) + 1), margin + divSize * i + radius * (Math.sin(angleVert[i]) + 1));
+    ctx.stroke();
   }
 
   for (let i = 1; i < Math.floor (canvas.height / divSize); ++ i) {
     for (let j = 1; j < DIVISIONS_HORIZ; ++ j) {
-
       ctx.beginPath ();
-      ctx.arc (margin + divSize * j + radius * (Math.cos (angleHoriz[j]) + 1), margin + divSize * i + radius * (Math.sin (angleVert[i]) + 1), dot, 0, PI2);
-      ctx.fill ();
+      ctx.moveTo(margin + divSize * j + radius * (Math.cos(preHoriz[j]) + 1), margin + divSize * i + radius * (Math.sin(preVert[i]) + 1));
+      ctx.lineTo(margin + divSize * j + radius * (Math.cos(angleHoriz[j]) + 1), margin + divSize * i + radius * (Math.sin(angleVert[i]) + 1));
+      ctx.stroke();
     }
   }
 }
 
 function LissajousCurves () {
-
   Update ();
   Draw ();
 }
