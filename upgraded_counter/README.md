@@ -1,3 +1,3 @@
 ### Upgraded Counter
 
-This is both an upgraded version of the default flutter project and my first project
+My first Flutter project. It displays the number of times you pressed the plus button, number with can be reset back to 0 by pressing the reset button.
