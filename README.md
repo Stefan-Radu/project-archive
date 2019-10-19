@@ -1,4 +1,4 @@
-## My silly projects
+## Mini projects I worked on
 
 Some of them are made by following online tutorials
 and tweaking the results. Others are just trial and
