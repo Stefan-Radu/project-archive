@@ -25,3 +25,6 @@ error. In both cases I've learned a lot.
 
 * Simulation:
   * Poincare's prediction
+  
+* Flutter
+  * Upgraded counter
