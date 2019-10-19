@@ -22,6 +22,7 @@ error. In both cases I've learned a lot.
   * Mandlebrot set
   * Julia set
   * Starfield
+  * Fireworks
 
 * Simulation:
   * Poincare's prediction
