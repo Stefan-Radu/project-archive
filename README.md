@@ -1,7 +1,7 @@
 ## My silly projects
 
 Some of them are made by following online tutorials
-and tweaking the results. Other are just trial and
+and tweaking the results. Others are just trial and
 error. In both cases I've learned a lot.
 
 * Terminal TicTacToe: X si O
