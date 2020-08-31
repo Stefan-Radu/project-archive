@@ -1,4 +1,5 @@
 ## Snake Game
 
-A remake of the classic Snake Game in C++ and SFML.
-It also contains a naive implementation of an AI.
+### A remake of the classic Snake Game in C++ and SFML with a tiwst
+
+* this is the project that got me started into programming *
