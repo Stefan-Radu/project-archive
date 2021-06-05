@@ -70,6 +70,7 @@ containerului. Acolo ma asigur ca se creeaza un entry in crontab-ul din
 container.
 
 
-#### ~~Chestii~~ Chestie extra
+#### Chestii ~~Chestie~~ extra
 
 * verfic daca ip-ul este formatat corect cu ajutorul unei expresii regex
+* am folosit si git ca sa se vada cat de cat progresul
