@@ -1,8 +1,10 @@
 FROM ubuntu:latest
 
 RUN apt-get -y update && \
-    apt-get -y upgrade && \
-    apt-get -y install python3-pip python3-venv python-is-python3
+    apt-get -y upgrade
+RUN apt-get -y install python3-pip python3-venv python-is-python3
+RUN apt-get -y install cron nano-tiny
+RUN apt-get -y install wget curl
 
 WORKDIR /usr/src/api
 
@@ -12,8 +14,10 @@ RUN venv/bin/pip install pip --upgrade
 COPY requirements.txt requirements.txt
 RUN venv/bin/pip install -r requirements.txt
 
-COPY docker_scripts/ docker_scripts/
+COPY scripts scripts
 COPY . .
 
-ENTRYPOINT ["./docker_scripts/populate_mongo.sh"]
-CMD ["./docker_scripts/start.sh"]
+RUN chmod +x "./scripts/start.sh" "./scripts/entrypoint.sh"
+
+ENTRYPOINT ["./scripts/entrypoint.sh"]
+CMD ["./scripts/start.sh"]

@@ -5,7 +5,7 @@ services:
     container_name: bit_api
     build: ./src
     ports:
-      - "5000:5000"
+      - "8080:5000"
     environment:
       MONGO_HOST: 'mongodb://db'
       MONGO_PORT: 27017
@@ -17,6 +17,8 @@ services:
     image: mongo:latest
     volumes:
       - mongo:/data/db
+    ports:
+      - "27017:27017"
 
 volumes:
   mongo:
