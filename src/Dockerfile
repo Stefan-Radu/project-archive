@@ -15,4 +15,5 @@ RUN venv/bin/pip install -r requirements.txt
 COPY docker_scripts/ docker_scripts/
 COPY . .
 
+ENTRYPOINT ["./docker_scripts/populate_mongo.sh"]
 CMD ["./docker_scripts/start.sh"]
