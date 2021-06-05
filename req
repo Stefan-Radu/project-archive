@@ -1,7 +1,16 @@
-curl--location--request\
-  POST'http://localhost:5000/api/v1/categorize'\
-  --header'Content-Type:application/json'\
-  --data-raw'{"ip":"13.34.37.65"}'
+curl --location --request\
+  POST 'http://localhost:8080/api/v1/categorize'\
+  --header 'Content-Type:application/json'\
+  --data-raw '{"ip":"13.34.37.65"}'
 
-curl --location --request \
+curl --location --request\
   GET	'http://localhost:8080/api/v1/categorize?ip=13.34.37.65'
+
+
+curl --location --request\
+  PUT	'http://localhost:8080/api/v1/categorize'	\
+  --header 'Content-Type:application/json'\
+  --data-raw '{"ip":	"13.34.37.65"}
+
+curl --location --request\
+  DELETE 'http://localhost:8080/api/v1/categorize?ip=13.34.37.65'

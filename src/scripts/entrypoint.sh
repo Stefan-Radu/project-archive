@@ -9,9 +9,9 @@ crontab scheduler.txt
 # wouldn't use docker set env variables without this
 printenv | grep -v "no_proxy" >> /etc/environment
 
-cron -f
-
 rm scheduler.txt
+
+cron -f &
 
 # also update ranges on container creation
 ./scripts/update_ranges.sh

@@ -21,10 +21,11 @@ def parse_ip(ip):
     return value
 
 
-def format_response(ok=True, data={}, message=""):
-    data.update({
-        'message': message
-    })
+def format_response(ok=True, data={}, message=''):
+    if message:
+        data.update({
+            'message': message
+        })
 
     return jsonify({
         'ok': ok,

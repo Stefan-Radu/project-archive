@@ -10,7 +10,6 @@ mongo = Mongo()
 # get ip details
 @categorize.route('/', methods=['GET'])
 def get_service_provider():
-    print('whyyyyyyyyyy')
     ip = request.args.get('ip')
 
     if not ip:
@@ -29,14 +28,40 @@ def get_service_provider():
 
     return format_response(
         ok=True,
-        message='IP details retrieved successfully.',
         data={
             'ip': details.get('ip'),
             'company': details.get('provider'),
         })
 
-
+# insert and ip to be tracked
 @categorize.route('/', methods=['POST'])
+def insert_ip():
+    data = request.get_json()
+    ip = data.get('ip')
+
+    if not ip:
+        return format_response(
+            ok=False,
+            message='`ip` param mandatory')
+
+    if not is_ipv4(ip):
+        return format_response(
+            ok=False,
+            message='Ip incorrectly formatted')
+
+
+    parsed = parse_ip(ip)
+    provider = mongo.get_provider(parsed)
+    print(ip, provider)
+    mongo.add_ip(ip, provider)
+
+    return format_response(
+        ok=True,
+        message='IP inserted successfully.')
+
+
+# update an ip's details if those were changed remotely
+@categorize.route('/', methods=['PUT'])
 def update_ip():
     data = request.get_json()
     ip = data.get('ip')
@@ -69,10 +94,10 @@ def update_ip():
         message='IP updated successfully.')
 
 
+# delete an ip
 @categorize.route('/', methods=['DELETE'])
 def delete_ip():
-    data = request.get_json()
-    ip = data.get('ip')
+    ip = request.args.get('ip')
 
     if not ip:
         return format_response(
@@ -84,6 +109,8 @@ def delete_ip():
             ok=False,
             message='Ip incorrectly formatted')
 
+    mongo.delete_ip(ip)
+
     return format_response(
         ok=True,
-        message='IP inserted successfully.')
+        message='IP deleted successfully.')
