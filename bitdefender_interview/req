@@ -1,0 +1,44 @@
+curl --location --request\
+  POST 'http://localhost:8080/api/v1/categorize'\
+  --header 'Content-Type:application/json'\
+  --data-raw '{"ip":"13.34.37.65"}'
+
+curl --location --request\
+  POST 'http://localhost:8080/api/v1/categorize'\
+  --header 'Content-Type:application/json'\
+  --data-raw '{"ip":"1334.37.65"}'
+
+curl --location --request\
+  POST 'http://localhost:8080/api/v1/categorize'\
+  --header 'Content-Type:application/json'\
+  --data-raw '{}'
+
+curl --location --request\
+  GET	'http://localhost:8080/api/v1/categorize?ip=13.34.37.65'
+
+curl --location --request\
+  GET	'http://localhost:8080/api/v1/categorize?ip=8.8.8.8
+
+curl --location --request\
+  GET	'http://localhost:8080/api/v1/categorize?
+
+curl --location --request\
+  PUT	'http://localhost:8080/api/v1/categorize'	\
+  --header 'Content-Type:application/json'\
+  --data-raw '{"ip":	"13.34.37.65"}'
+
+curl --location --request\
+  PUT	'http://localhost:8080/api/v1/categorize'	\
+  --header 'Content-Type:application/json'\
+  --data-raw '{"ip":	"1334.37.65"}'
+
+curl --location --request\
+  PUT	'http://localhost:8080/api/v1/categorize'	\
+  --header 'Content-Type:application/json'\
+  --data-raw '{}'
+
+curl --location --request\
+  DELETE 'http://localhost:8080/api/v1/categorize?ip=13.34.37.65'
+
+curl --location --request\
+  DELETE 'http://localhost:8080/api/v1/categorize?ip=13.34.3765'
