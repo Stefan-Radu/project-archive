@@ -1,28 +1,40 @@
-# Defender of the Bit - Ip Service
+# Bitdefender - Ip Service
 
 ### Instalare
 
 Am inclus un `Dockerfile` si un `docker-compose.yml`, asadar pentru instalare
-de dependinte, setup, rulare se ruleaza doar comanda `docker-compose up -d
---build` (sau fara `-d` daca vrem loguri)
+de dependinte, setup, rulare se ruleaza doar comanda `docker-compose up --build` 
+(sau cu `-d` daca vrem fara loguri).
+
+**Setup-ul dureaza aproximativ un minut**, timp in care se insereaza in mongo toate 
+datele necesare. Va rog sa asteptati pana cand api-ul porneste (se vede in loguri
+pentru varianta fara `-d`, sau se poate verifica cu un request GET in browser pe 
+`localhost:8080` care va da **Not Found** in momentul in care api-ul a pornit)
 
 ### Documentatie
 
 #### Tehnologii
 
-* `Python` `Flask` `MongoDB` `Docker` & `DockerCompose` `Bash` & `Unix` tools ?
+* `Python` 
+* `Flask` 
+* `MongoDB`
+* `Docker` & `DockerCompose`
+* `Bash` & `Unix` tools
 
 #### Setup
 
 Aceasta a fost etapa cea mai longeviva, intrucat nu am experienta extensiva
-folosind docker. Am pierdut ore in sir incercand sa rulez proiectul folosind de
-montarea unui volum local in instanta docker. Pana la urma am renuntat si am
-ajuns la implementarea actuala in care pur si simplu se copiaza continutul
+folosind docker. Am pierdut ore in sir incercand sa rulez proiectul folosind
+de montarea unui volum local in instanta docker. Pana la urma am renuntat si
+am ajuns la implementarea actuala in care pur si simplu se copiaza continutul
 directorului de lucru in container si se continua de acolo.
 
-Am folosit doua containere, unul pe care ruleaza API-ul si altul pentru baza de
-date `MongoDB`.
-
+Am folosit doua containere, unul pe care ruleaza API-ul si altul pentru baza
+de date `MongoDB`.
+</br>
+</br>
+</br>
+</br>
 #### Ip Ranges
 
 M-am informat in legatura cu aceste ip-ranges si am gasite fisiere `json`
@@ -49,9 +61,8 @@ Am folosit urmatoarele scripturi:
 
 Api-ul este destul de simplut. Am folosit `python` si `flask` impreuna cu
 `pymongo` pentru conexiunea la db. Am 4 endpoint-uri conforme cu descrierea.
-Exemplu de request-uri in continuare. Se poate testa superficial si rapid
-ruland `cat req | bash` din radacina proiectului (req contine cateva requesturi
-hardcodate).
+Se poate testa superficial si rapid ruland `cat req | bash` din radacina
+proiectului (req contine cateva requesturi hardcodate).
 
 #### Problema cu request-ul de PUT
 
@@ -72,5 +83,5 @@ container.
 
 #### Chestii ~~Chestie~~ extra
 
-* verfic daca ip-ul este formatat corect cu ajutorul unei expresii regex
-* am folosit si git ca sa se vada cat de cat progresul
+* verfic daca ip-ul este formatat corect cu ajutorul unei expresii regex am
+* folosit si git ca sa se vada cat de cat progresul

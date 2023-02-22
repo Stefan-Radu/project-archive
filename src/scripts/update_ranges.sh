@@ -2,7 +2,7 @@
 
 # download ip ranges json files
 wget -O data/amazon.json "https://ip-ranges.amazonaws.com/ip-ranges.json"
-# it's obviously a hasle with microsoft
+# it's obviously a hassle with microsoft
 wget -O data/azure.json `curl -sS https://www.microsoft.com/en-us/download/confirmation.aspx\?id\=56519 | grep -Eo 'https://download\.microsoft\.com/([-_a-zA-Z0-9]*/?)*?\.json' | uniq`
 wget -O data/google.json "https://www.gstatic.com/ipranges/cloud.json"
 

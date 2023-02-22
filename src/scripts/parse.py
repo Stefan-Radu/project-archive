@@ -1,5 +1,14 @@
 from sys import stdin
 
+
+def is_ipv4(ip):
+    pattern = r'([0-9]{1,3}\.){3}[0-9]{1,3}\/[0-9]{1,2}'
+    result = re.search(pattern, ip)
+    if result:
+        return result.group() == ip
+    return False
+
+
 def parse_line(line):
     ip, mask = line.strip().split('/')
 

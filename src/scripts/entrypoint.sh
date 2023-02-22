@@ -14,7 +14,9 @@ rm scheduler.txt
 cron -f &
 
 # also update ranges on container creation
+echo "Loading services data... Please wait"
 ./scripts/update_ranges.sh
+echo "DONE"
 
 # run everything else
 exec "$@"

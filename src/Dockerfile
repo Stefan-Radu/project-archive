@@ -14,7 +14,6 @@ RUN venv/bin/pip install pip --upgrade
 COPY requirements.txt requirements.txt
 RUN venv/bin/pip install -r requirements.txt
 
-COPY scripts scripts
 COPY . .
 
 RUN chmod +x "./scripts/start.sh" "./scripts/entrypoint.sh"

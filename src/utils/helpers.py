@@ -1,8 +1,6 @@
 import re
 from flask import jsonify
 
-# TODO check of ipv6
-
 def is_ipv4(ip):
     pattern = r'([0-9]{1,3}\.){3}[0-9]{1,3}'
     result = re.search(pattern, ip)

@@ -11,12 +11,14 @@ MONGO_PORT = int(os.getenv('MONGO_PORT', ''))
 session = MongoClient(MONGO_HOST, MONGO_PORT)
 
 services = {
-    'azure': 'Azure',
     'amazon': 'Amazon Web Services',
     'google': 'Google Cloud Platform',
+    'azure': 'Azure',
 }
 
 for service in services:
+    print(f'loading service {service} ...')
+
     with open(f'./data/{service}_ranges.txt', 'r') as f:
 
         session.bit.ip_ranges.create_index([
@@ -40,6 +42,6 @@ for service in services:
                     'upper_bound': upper_bound,
                 }, { '$set': {'service': services[service]} }, upsert=True)
 
-    print(f'service {service} done')
+    print(f'DONE')
 
 session.close()
